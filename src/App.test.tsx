@@ -1,9 +1,15 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 
-test("renders the course name somewhere", () => {
+test("renders the counter with initial state", () => {
     render(<App />);
-    const linkElement = screen.getByText(/COS420/i);
-    expect(linkElement).toBeInTheDocument();
+    expect(screen.getByText(/Current count: 0/i)).toBeInTheDocument();
+});
+
+test("increments the count when the button is clicked", () => {
+    render(<App />);
+    const button = screen.getByText(/Increment/i);
+    fireEvent.click(button);
+    expect(screen.getByText(/Current count: 1/i)).toBeInTheDocument();
 });
